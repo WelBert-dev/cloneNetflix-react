@@ -1,0 +1,37 @@
+
+
+header {
+    position: fixed;  /* mantem o item fixo, mesmo rolando para baixo*/ 
+    z-index: 999; /* sobre põe outras divs (se nao iria ficar atras das outras divs)*/
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 70px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 30px; /* o primeiro é em cima e baixo, e o outro é direita e esquerda*/
+    background: transparent;
+    transition: all ease-in-out 0.5s;
+}
+
+header.black {
+    background-color: #141414;
+}
+
+.header--logo {
+    height: 70px;
+}
+
+.header--logo img {
+    height: 100%;
+}
+
+.header--user {
+    height: 50px;
+}
+
+.header--user img {
+    height: 100%;
+    border-radius: 5px;
+}
