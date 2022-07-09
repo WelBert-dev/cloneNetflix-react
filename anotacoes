@@ -1,0 +1,76 @@
+Sites interessantes:
+   - Request HTTP: https://resttesttest.com/
+   - Formatar texto json: http://jsonviewer.stack.hu/
+
+
+
+- TMDB API Key (v3 auth): 748fda6259a3d1d054e5df7c5b41a454
+- Exemplo de requisição: https://api.themoviedb.org/3/movie/550?api_key=748fda6259a3d1d054e5df7c5b41a454
+   - Para retornar traduzido pt br utilizar: &language=pt-BR no final da URL
+      - Exemplo: https://api.themoviedb.org/3/movie/550?api_key=748fda6259a3748fda6259a3d1d054e5df7c5b41a454d&language=pt-BR
+- Token de leitura da API(v4 auth): eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI3NDhmZGE2MjU5YTNkMWQwNTRlNWRmN2M1YjQxYTQ1NCIsInN1YiI6IjYyNDYwNDcxYjA0MjI4MDA5OWM4NDFjNyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.dv9I4wgeR-YFr-Ad-J1IUkXxYNNXoTknCBMpkQzX2BU
+
+Parei 02:12:00 link: https://www.youtube.com/watch?v=tBweoUiMsDg&t=7109s
+
+- Site para pegar componentes/icones interessante citado no vídeo:
+--- https://mui.com/pt/components/icons/
+--- Para utilizarmos é necessário instalar a lib no projeto
+------ npm install @material-ui/core
+
+
+
+- Passo 01 (Obtendo os filmes e suas informações TMDB):
+	* Criar o arquivo Tmdb.js para fazer as requisições a API.
+
+		* Criar os atributos que seram utilizados nos métodos
+			- Constante "API_BASE": URL Base das consultas
+			- Constante "API_KEY": chave secreta necessária para realizar as requisições HTTP
+			- Endpoint: Caminho que é passado nas chamadas dos métodos.
+		
+		* Criar o método genérico "getHomeList" que pega os filmes em geral
+			- Fazendo fetch nos endpoints necessários
+				- passando assim a API_KEY e a URL e concatenando &language=pt-BR 
+					- Retorno: json array com os arrays dos generos (informações incompletas)
+						- Retorno json: um array com as listas:
+							- Originais Netflix (originals)
+							- Recomendados (trending)
+							- Em Alta (toprated)
+							- Ação (action)
+							- Comédia (Comedy)
+							- Terror (Horror)
+							- Documentário (Documentary)
+
+		* Criar o método expecifico "getMovieInfo" (endpoint que retorna mais informações sobre o filme ou a série X)
+			- Fazendo fetch nos endpoints necessários 
+				- passando assim a API_KEY e a URL e concatenando &language=pt-BR
+					retorno: json array com as informações mais completas de um filme x (informações mais completas)
+		
+- Passo 02 (Introdução e começo da montagem do site App.js):
+
+	* Fazer os devidos imports.
+		- TMDB from './Tmdb.js'
+
+	* Criar os atributos que seram utilizados nos métodos:
+		- Constante "movieList": Irá armazenar as listas dos filmes em si
+		- Constante "featuredData": Irá armazenar os dados do filme em destaque (Original Netflix)
+		- Constante "blackHeader": Irá guardar o valor boolean indicando se ocorreu um scrollX 
+
+	* Utilizar a função "useEffect(()=>{},[]);" pois é ela quem roda ao corregar a página 
+		- Dentro dela vai conter:
+			- loadAll async (Método que vai carregar tudo)
+				- Pegar a lista total (Tmdb.getHomeList())
+				 	- Alimentar o "movieList" com o setMovieList(list).
+
+	* Criar o código HTML em sí da pag contendo as listas:
+		- Utilizando o método movieList.map(()=> {<section "lists"})
+			- o map vai percorrer a lista e vai criar uma <MovieRow> para cada lista
+
+- Passo 03 (Criando o MovieRow.js):
+				
+	* Parâmetros de entrada: 
+		- title e Items(array dos filmes).
+	* Classes:
+		- movieRow: todos os componentes
+		- movieRow--listarea: area da lista em si
+			- movieRow--list: 
+				- movieRow--item: 
